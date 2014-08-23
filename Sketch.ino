@@ -1,7 +1,6 @@
 #include <Adafruit_NeoPixel.h>
 #define MAX_VAL 64  // 0 to 255 for brightness
-#define DELAY_TIME 50 
-#define DELAY_TIME2 20
+#define DELAY_TIME 20
 #define MAX_STRIP 4
  
 // Parameter 1 = number of pixels in strip
@@ -58,11 +57,16 @@ void loop() {
       int ch = Serial.read();
     }
   }
-  delay(1);
+  delay(0.2);
 }
 
 // Fill the dots one after the other with a color
 void colorWipe(Adafruit_NeoPixel* strip, uint32_t c, uint8_t wait) {
+  for(uint16_t i=0; i< strip->numPixels(); i++) {
+      strip->setPixelColor(i, strip->Color(0, 0, 0));
+      strip->show();
+      delay(wait);
+  }
   for(uint16_t i=0; i< strip->numPixels(); i++) {
       strip->setPixelColor(i, c);
       strip->show();
